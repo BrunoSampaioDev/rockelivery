@@ -19,6 +19,10 @@ defmodule RockeliveryWeb.ErrorView do
     %{errors: translet_errors(changeset)}
   end
 
+  def render("error.json", %{result: result}) do
+    %{errors: result}
+  end
+
   defp translet_errors(changeset) do
     traverse_errors(changeset, fn {msg, opts} ->
       Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
