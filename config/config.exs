@@ -18,7 +18,7 @@ if Mix.env() == :dev do
     hooks: [
       pre_commit: [
         tasks: [
-          {:cmd, "mix credo"}
+          {:cmd, "mix format"}
         ]
       ],
       pre_push: [
