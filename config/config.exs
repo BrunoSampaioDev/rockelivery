@@ -18,13 +18,12 @@ if Mix.env() == :dev do
     hooks: [
       pre_commit: [
         tasks: [
-          {:cmd, "mix format --check-formatted"}
+          {:cmd, "mix credo"}
         ]
       ],
       pre_push: [
-        verbose: true,
+        verbose: false,
         tasks: [
-          {:cmd, "mix dialyzer"},
           {:cmd, "mix test --color"},
           {:cmd, "echo 'success!'"}
         ]
