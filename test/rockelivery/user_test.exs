@@ -2,18 +2,11 @@ defmodule Rockelivery.UserTest do
   use Rockelivery.DataCase, async: true
   alias Ecto.Changeset
   alias Rockelivery.User
+  import Rockelivery.Factory
 
   describe "changeset/2" do
     test "when all params are valid, returns a valid changeset" do
-      params = %{
-        address: Faker.Address.PtBr.street_address(),
-        age: 31,
-        cep: String.replace(Faker.Address.PtBr.zip_code(), ~r/[!#$%&()*+,.:;<=>?@\^_`{|}~-]/, ""),
-        cpf: "13718203766",
-        email: "any_mail@mail.com",
-        password: "123123",
-        name: Faker.Person.PtBr.name()
-      }
+      params = build(:user_params, %{cep: "00000000"})
 
       response = User.changeset(params)
 
@@ -21,15 +14,7 @@ defmodule Rockelivery.UserTest do
     end
 
     test "when updating a changeset, returns a valid changeset the given changes" do
-      params = %{
-        address: Faker.Address.PtBr.street_address(),
-        age: 31,
-        cep: String.replace(Faker.Address.PtBr.zip_code(), ~r/[!#$%&()*+,.:;<=>?@\^_`{|}~-]/, ""),
-        cpf: "13718203766",
-        email: "any_mail@mail.com",
-        password: "123123",
-        name: Faker.Person.PtBr.name()
-      }
+      params = params = build(:user_params, %{cep: "00000000"})
 
       update_params = %{name: "new_name", password: "123123"}
 
@@ -42,15 +27,7 @@ defmodule Rockelivery.UserTest do
     end
 
     test "when there are some error, return an invalid changeset" do
-      params = %{
-        address: Faker.Address.PtBr.street_address(),
-        age: 31,
-        cep: Faker.Address.PtBr.zip_code(),
-        cpf: "13718203766",
-        email: "any_mail@mail.com",
-        password: "176764223",
-        name: Faker.Person.PtBr.name()
-      }
+      params = params = build(:user_params, %{cep: "123"})
 
       reponse = params |> User.changeset()
 
