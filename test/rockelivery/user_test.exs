@@ -14,7 +14,7 @@ defmodule Rockelivery.UserTest do
     end
 
     test "when updating a changeset, returns a valid changeset the given changes" do
-      params = params = build(:user_params, %{cep: "00000000"})
+      params = build(:user_params, %{cep: "00000000"})
 
       update_params = %{name: "new_name", password: "123123"}
 
@@ -27,7 +27,7 @@ defmodule Rockelivery.UserTest do
     end
 
     test "when there are some error, return an invalid changeset" do
-      params = params = build(:user_params, %{cep: "123"})
+      params = build(:user_params, %{cep: "123"})
 
       reponse = params |> User.changeset()
 
