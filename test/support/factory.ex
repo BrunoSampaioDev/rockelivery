@@ -1,5 +1,7 @@
 defmodule Rockelivery.Factory do
   use ExMachina.Ecto, repo: Rockelivery.Repo
+
+  alias Rockelivery.Item
   alias Rockelivery.User
 
   def user_params_factory do
@@ -33,6 +35,18 @@ defmodule Rockelivery.Factory do
       password: "123123",
       name: "any name",
       id: "84915c02-6537-4859-b609-87b2b9bf67a3"
+    }
+  end
+
+  def item_factory do
+    %Item{
+      category: :food,
+      description: "Pizza de banana",
+      id: "84915c02-6537-4859-b609-87b2b9bf67a3",
+      inserted_at: nil,
+      photo: "http://",
+      price: "12.50",
+      updated_at: nil
     }
   end
 end
