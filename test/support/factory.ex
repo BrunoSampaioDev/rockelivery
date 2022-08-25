@@ -14,6 +14,15 @@ defmodule Rockelivery.Factory do
     }
   end
 
+  def item_params_factory do
+    %{
+      "category" => "food",
+      "description" => "Pizza de banana",
+      "price" => "12.50",
+      "photo" => "http://"
+    }
+  end
+
   def user_factory do
     %User{
       address: "any_address",
