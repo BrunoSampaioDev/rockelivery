@@ -5,21 +5,40 @@ defmodule RockeliveryWeb.ItemsViewTest do
   alias Rockelivery.Item
   alias RockeliveryWeb.ItemsView
 
-  test "renders create json" do
-    item = build(:item)
+  describe "item view/1" do
+    test "renders create json" do
+      item = build(:item)
 
-    response = render(ItemsView, "create.json", item: item)
+      response = render(ItemsView, "create.json", item: item)
 
-    assert %{
-             message: "item created",
-             item: %Item{
-               category: :food,
-               description: "Pizza de banana",
-               id: "84915c02-6537-4859-b609-87b2b9bf67a3",
-               inserted_at: nil,
-               photo: "http://",
-               price: "12.50"
-             }
-           } == response
+      assert %{
+               message: "item created",
+               item: %Item{
+                 category: :food,
+                 description: "Pizza de banana",
+                 id: "84915c02-6537-4859-b609-87b2b9bf67a3",
+                 inserted_at: nil,
+                 photo: "http://",
+                 price: "12.50"
+               }
+             } == response
+    end
+
+    test "renders item json" do
+      item = build(:item)
+
+      response = render(ItemsView, "item.json", item: item)
+
+      assert %{
+               item: %Item{
+                 category: :food,
+                 description: "Pizza de banana",
+                 id: "84915c02-6537-4859-b609-87b2b9bf67a3",
+                 inserted_at: nil,
+                 photo: "http://",
+                 price: "12.50"
+               }
+             } == response
+    end
   end
 end
