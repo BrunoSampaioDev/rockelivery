@@ -12,4 +12,12 @@ defmodule RockeliveryWeb.ItemsController do
       |> render("create.json", item: item)
     end
   end
+
+  def show(conn, %{"id" => id}) do
+    with {:ok, %Item{} = item} <- Rockelivery.get_item_by_id(id) do
+      conn
+      |> put_status(:ok)
+      |> render("item.json", item: item)
+    end
+  end
 end
