@@ -3,6 +3,7 @@ defmodule Rockelivery.Order do
   import Ecto.Changeset
   alias Rockelivery.{Item, User}
   @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
   @payment_method [:money, :credit_card, :debit_card]
   @required_params [:adress, :comments, :payment_method, :user_id]
   @derive {Jason.Encoder, only: @required_params ++ [:id]}
