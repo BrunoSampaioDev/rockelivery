@@ -6,7 +6,7 @@ defmodule Rockelivery.Order do
   @foreign_key_type :binary_id
   @payment_method [:money, :credit_card, :debit_card]
   @required_params [:adress, :comments, :payment_method, :user_id]
-  @derive {Jason.Encoder, only: @required_params ++ [:id]}
+  @derive {Jason.Encoder, only: @required_params ++ [:id, :items]}
 
   schema "orders" do
     field :adress, :string
