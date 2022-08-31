@@ -1,7 +1,7 @@
 defmodule Rockelivery do
   alias Rockelivery.Items.Create, as: ItemCreate
   alias Rockelivery.Items.Get, as: ItemGet
-
+  alias Rockelivery.Orders.Create, as: OrderCreate
   alias Rockelivery.Users.Create, as: UserCreate
   alias Rockelivery.Users.Delete, as: UserDelete
   alias Rockelivery.Users.Get, as: UserGet
@@ -18,4 +18,6 @@ defmodule Rockelivery do
   defdelegate create_item(params), to: ItemCreate, as: :call
 
   defdelegate get_item_by_id(id), to: ItemGet, as: :by_id
+
+  defdelegate create_order(params), to: OrderCreate, as: :call
 end
