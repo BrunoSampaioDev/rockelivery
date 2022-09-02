@@ -50,7 +50,9 @@ defmodule Rockelivery.MixProject do
       {:git_hooks, "~> 0.7.0", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:faker, "~> 0.17", only: :test},
-      {:ex_machina, "~> 2.7.0"}
+      {:ex_machina, "~> 2.7.0"},
+      {:tesla, "~> 1.4"},
+      {:hackney, "~> 1.17"}
     ]
   end
 
