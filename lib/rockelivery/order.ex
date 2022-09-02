@@ -1,21 +1,25 @@
 defmodule Rockelivery.Order do
   use Ecto.Schema
   import Ecto.Changeset
+
+  alias Ecto.Enum
   alias Rockelivery.{Item, User}
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  @payment_method [:money, :credit_card, :debit_card]
-  @required_params [:adress, :comments, :payment_method, :user_id]
+
+  @required_params [:address, :comments, :payment_method, :user_id]
+  @payment_methods [:money, :credit_card, :debit_card]
+
   @derive {Jason.Encoder, only: @required_params ++ [:id, :items]}
 
   schema "orders" do
-    field :adress, :string
+    field :address, :string
     field :comments, :string
-    field :payment_method, Ecto.Enum, values: @payment_method
-    field :user_id, :string
+    field :payment_method, Enum, values: @payment_methods
 
     many_to_many :items, Item, join_through: "orders_items"
-    belongs_to :users, User
+    belongs_to :user, User
 
     timestamps()
   end
@@ -25,5 +29,7 @@ defmodule Rockelivery.Order do
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> put_assoc(:items, items)
+    |> validate_length(:address, min: 10)
+    |> validate_length(:comments, min: 6)
   end
 end
