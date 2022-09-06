@@ -8,7 +8,7 @@ defmodule Rockelivery.Factory do
     %{
       "address" => Faker.Address.PtBr.street_address(),
       "age" => 31,
-      "cep" => Faker.Address.PtBr.zip_code(),
+      "cep" => "01001000",
       "cpf" => "13718203766",
       "email" => "#{Faker.Person.PtBr.name()}@#{Faker.Internet.PtBr.free_email_service()}",
       "password" => "123123",
@@ -29,7 +29,7 @@ defmodule Rockelivery.Factory do
     %User{
       address: "any_address",
       age: 31,
-      cep: "00000000",
+      cep: "01001000",
       cpf: "13718203766",
       email: "any_mail@mail.com",
       password: "123123",
@@ -47,6 +47,21 @@ defmodule Rockelivery.Factory do
       photo: "http://",
       price: "12.50",
       updated_at: nil
+    }
+  end
+
+  def cep_info_factory do
+    %{
+      "bairro" => "Sé",
+      "cep" => "01001-000",
+      "complemento" => "lado ímpar",
+      "ddd" => "11",
+      "gia" => "1004",
+      "ibge" => "3550308",
+      "localidade" => "São Paulo",
+      "logradouro" => "Praça da Sé",
+      "siafi" => "7107",
+      "uf" => "SP"
     }
   end
 end

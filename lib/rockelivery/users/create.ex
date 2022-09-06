@@ -1,28 +1,25 @@
 defmodule Rockelivery.Users.Create do
   alias Rockelivery.{Error, Repo, User}
+  alias Rockelivery.UsersHelpers
 
-  def call(params) do
-    params
-    |> normalize_cep()
-    |> normalize_cpf()
-    |> User.changeset()
-    |> Repo.insert()
-    |> handle_insert()
+  def call(%{"cep" => cep} = params) do
+    changeset =
+      params
+      |> UsersHelpers.normalize_cep()
+      |> UsersHelpers.normalize_cpf()
+      |> User.changeset()
+
+    with {:ok, %User{}} <- User.build(changeset),
+         {:ok, _cep_info} <- client().get_cep_info(cep),
+         {:ok, %User{}} = user <- Repo.insert(changeset) do
+      user
+    else
+      {:error, %Error{}} = error -> error
+      {:error, result} -> {:error, Error.build(:bad_request, result)}
+    end
   end
 
-  defp normalize_cpf(%{"cpf" => cpf} = params) do
-    normal = String.replace(cpf, ~r/[!#$%&()*+,.:;<=>?@\^_`{|}~-]/, "")
-    %{params | "cpf" => normal}
-  end
-
-  defp normalize_cep(%{"cep" => cep} = params) do
-    normal = String.replace(cep, ~r/[!#$%&()*+,.:;<=>?@\^_`{|}~-]/, "")
-    %{params | "cep" => normal}
-  end
-
-  defp handle_insert({:ok, %User{}} = result), do: result
-
-  defp handle_insert({:error, result}) do
-    {:error, Error.build(:bad_request, result)}
+  defp client do
+    Application.fetch_env!(:rockelivery, __MODULE__)[:via_cep_adapter]
   end
 end
