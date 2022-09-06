@@ -13,6 +13,8 @@ config :rockelivery, Rockelivery.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
+config :rockelivery, Rockelivery.Users.Create, via_cep_adapter: Rockelivery.ViaCep.ClientMock
+
 if System.get_env("GITHUB_ACTIONS") do
   config :app, App.Repo,
     username: "postgres",
